@@ -2,32 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:iguesflut_23/http_com/components/moviesList.dart';
 import 'package:iguesflut_23/http_com/movieModel.dart';
 import 'package:iguesflut_23/http_com/repository.dart';
+import 'package:provider/provider.dart';
 
-class CommunicationPage extends StatefulWidget {
-  const CommunicationPage({Key? key}) : super(key: key);
+import '../appState.dart';
 
-  @override
-  State<CommunicationPage> createState() => _CommunicationPageState();
-}
-
-class _CommunicationPageState extends State<CommunicationPage> {
-  Future<List<MovieModel>>? futureMovies;
-
-  @override
-  void initState() {
-    futureMovies = futureMovies ?? getMovies();
-    super.initState();
-  }
-
+class CommunicationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    var movies = appState.movies;
+
+    if (movies != null && movies.isNotEmpty) {
+      return MoviesList(movies: movies);
+    }
     return FutureBuilder(
-        future: futureMovies,
+        future: getMovies(),
         builder: (context, snapshot) {
           const padding = EdgeInsets.all(25);
 
           if (snapshot.hasData) {
-            final movies = snapshot.data as List<MovieModel>;
+            var movies = snapshot.data as List<MovieModel>;
+            appState.movies = movies;
             return MoviesList(movies: movies);
           } else if (snapshot.hasError) {
             return Padding(

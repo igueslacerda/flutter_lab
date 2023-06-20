@@ -72,7 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: Text('Favoritos'),
                   ),
                   NavigationRailDestination(
-                      icon: Icon(Icons.browser_updated), label: Text('Http')),
+                    icon: Icon(Icons.browser_updated),
+                    label: Text('Http'),
+                  ),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {

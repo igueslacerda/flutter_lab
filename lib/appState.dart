@@ -1,8 +1,11 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
+import 'http_com/movieModel.dart';
+
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+  List<MovieModel>? movies;
 
   void getNext() {
     current = WordPair.random();
